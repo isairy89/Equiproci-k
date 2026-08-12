@@ -18,8 +18,7 @@ export type TabType =
   | 'conduces_lista'
   | 'servicios_precios'
   | 'reporte_clientes'
-  | 'reporte_nomina'
-  | 'decisiones_pendientes';
+  | 'reporte_nomina';
 
 interface SidebarProps {
   activeTab: TabType;

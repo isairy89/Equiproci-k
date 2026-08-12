@@ -64,8 +64,8 @@ export class ExportService {
             proyecto: c.direccionProyecto,
             itemDetalle: det.material,
             placaEquipo: `Camión ${c.placaCamion}`,
-            horas: 0,
-            viajes: det.unidad === 'viaje' ? det.cantidad : (c.totalViajes || 0),
+            horas: det.unidad === 'hora' ? det.cantidad : 0,
+            viajes: det.unidad === 'viaje' ? det.cantidad : 0,
             metros: det.unidad === 'metro' ? det.cantidad : 0,
             precioUnitario: det.precioUnitario,
             total: det.subtotal,
@@ -108,9 +108,9 @@ export class ExportService {
             numeroConduce: c.numeroConduce,
             clienteNombre: c.clienteNombre,
             servicioDescripcion: `Acarreo: ${det.material}`,
-            horasTrabajadas: 0,
-            viajes: det.unidad === 'viaje' ? det.cantidad : c.totalViajes,
-            metros: det.unidad === 'metro' ? det.cantidad : c.totalMetros,
+            horasTrabajadas: det.unidad === 'hora' ? det.cantidad : 0,
+            viajes: det.unidad === 'viaje' ? det.cantidad : 0,
+            metros: det.unidad === 'metro' ? det.cantidad : 0,
             precioUnitario: det.precioUnitario,
             totalMonetario: det.subtotal
           });

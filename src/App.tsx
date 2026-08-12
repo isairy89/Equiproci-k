@@ -6,8 +6,7 @@ import {
   Empleado,
   Conduce,
   ConduceEquipoPesado,
-  ConduceMaterial,
-  DecisionPendiente
+  ConduceMaterial
 } from './types';
 import { StorageService } from './services/storage';
 import { Header } from './components/Header';
@@ -19,7 +18,6 @@ import { ConducesList } from './components/ConducesList';
 import { ServiciosPreciosManager } from './components/ServiciosPreciosManager';
 import { ReporteClientes } from './components/ReporteClientes';
 import { ReporteNomina } from './components/ReporteNomina';
-import { NotasPendientesModal } from './components/NotasPendientesModal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('produccion');
@@ -30,13 +28,9 @@ export default function App() {
   const [preciosCliente, setPreciosCliente] = useState<PrecioCliente[]>([]);
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [conduces, setConduces] = useState<Conduce[]>([]);
-  const [decisiones, setDecisiones] = useState<DecisionPendiente[]>([]);
 
   // Conduce en edición
   const [conduceEnEdicion, setConduceEnEdicion] = useState<Conduce | null>(null);
-
-  // Modal Notas Pendientes
-  const [isPendingModalOpen, setIsPendingModalOpen] = useState<boolean>(false);
 
   // Carga inicial de datos desde LocalStorage o fábrica
   useEffect(() => {
@@ -49,7 +43,6 @@ export default function App() {
     setPreciosCliente(StorageService.getPreciosCliente());
     setEmpleados(StorageService.getEmpleados());
     setConduces(StorageService.getConduces());
-    setDecisiones(StorageService.getDecisiones());
   };
 
   // Restablecer datos a demo
@@ -148,29 +141,12 @@ export default function App() {
     StorageService.savePreciosCliente(copia);
   };
 
-  // Alternar estado de decisión pendiente
-  const handleToggleEstadoDecision = (id: string) => {
-    const copia = decisiones.map((d) => {
-      if (d.id === id) {
-        const nuevoEstado = d.estado === 'resuelto' ? 'pendiente' : 'resuelto';
-        return { ...d, estado: nuevoEstado as any };
-      }
-      return d;
-    });
-    setDecisiones(copia);
-    StorageService.saveDecisiones(copia);
-  };
-
-  const pendingCount = decisiones.filter((d) => d.estado !== 'resuelto').length;
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
       
       {/* Top Header */}
       <Header
-        onOpenPending={() => setIsPendingModalOpen(true)}
         onResetData={handleResetData}
-        pendingCount={pendingCount}
       />
 
       {/* Workspace Principal */}
@@ -183,11 +159,7 @@ export default function App() {
             if (tab !== 'registro_equipos' && tab !== 'registro_materiales') {
               setConduceEnEdicion(null);
             }
-            if (tab === 'decisiones_pendientes') {
-              setIsPendingModalOpen(true);
-            } else {
-              setActiveTab(tab);
-            }
+            setActiveTab(tab);
           }}
           totalConduces={conduces.length}
         />
@@ -280,14 +252,6 @@ export default function App() {
 
         </main>
       </div>
-
-      {/* Modal de Notas Pendientes de Definición */}
-      <NotasPendientesModal
-        isOpen={isPendingModalOpen}
-        onClose={() => setIsPendingModalOpen(false)}
-        decisiones={decisiones}
-        onToggleEstado={handleToggleEstadoDecision}
-      />
 
     </div>
   );

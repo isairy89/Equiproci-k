@@ -2,12 +2,10 @@ import React from 'react';
 import { HardHat, FileSpreadsheet, AlertTriangle, RefreshCw, Layers } from 'lucide-react';
 
 interface HeaderProps {
-  onOpenPending: () => void;
   onResetData: () => void;
-  pendingCount: number;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenPending, onResetData, pendingCount }) => {
+export const Header: React.FC<HeaderProps> = ({ onResetData }) => {
   const fechaActual = new Date().toLocaleDateString('es-DO', {
     weekday: 'long',
     year: 'numeric',
@@ -43,19 +41,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPending, onResetData, pend
             <span className="text-xs text-slate-400 capitalize">{fechaActual}</span>
             <span className="text-xs text-amber-400 font-medium">Modo Administrativo</span>
           </div>
-
-          {/* Pending Business Definitions Alert Badge */}
-          <button
-            onClick={onOpenPending}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition-all text-xs font-medium cursor-pointer"
-            title="Ver temas pendientes de definición de negocio"
-          >
-            <AlertTriangle className="w-4 h-4 text-amber-400" />
-            <span className="hidden sm:inline">Puntos Pendientes</span>
-            <span className="bg-amber-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">
-              {pendingCount}
-            </span>
-          </button>
 
           {/* Data Reset / Demo Refresh */}
           <button

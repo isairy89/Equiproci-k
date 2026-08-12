@@ -142,12 +142,9 @@ export const ConduceFormMateriales: React.FC<ConduceFormMaterialesProps> = ({
     .filter((d) => d.unidad === 'metro')
     .reduce((sum, d) => sum + d.cantidad, 0);
 
-  const totalViajesCalculado = Math.ceil(
-    detalles.reduce((sum, d) => {
-      if (d.unidad === 'viaje') return sum + d.cantidad;
-      return sum + (capacidadCamionM3 > 0 ? d.cantidad / capacidadCamionM3 : 1);
-    }, 0)
-  );
+  const totalViajesCalculado = detalles
+    .filter((d) => d.unidad === 'viaje')
+    .reduce((sum, d) => sum + d.cantidad, 0);
 
   const montoTotalCalculado = detalles.reduce((sum, d) => sum + d.subtotal, 0);
 
@@ -178,6 +175,14 @@ export const ConduceFormMateriales: React.FC<ConduceFormMaterialesProps> = ({
     }
     if (detalles.length === 0) {
       setErrorMsg('Debe agregar al menos un material en el detalle.');
+      return;
+    }
+
+    const tieneDetalleInvalido = detalles.some(
+      (d) => !d.material.trim() || d.cantidad <= 0 || d.precioUnitario < 0
+    );
+    if (tieneDetalleInvalido) {
+      setErrorMsg('Cada línea de detalle debe tener un material válido, cantidad mayor a 0 y precio mayor o igual a 0.');
       return;
     }
 

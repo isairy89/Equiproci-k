@@ -100,10 +100,10 @@ export const ConduceFormMateriales: React.FC<ConduceFormMaterialesProps> = ({
       ...detalles,
       {
         material: MATERIALES_ESTANDAR[0],
-        cantidad: capacidadCamionM3,
+        cantidad: 10,
         unidad: 'metro',
         precioUnitario: 800,
-        subtotal: capacidadCamionM3 * 800
+        subtotal: 10 * 800
       }
     ]);
   };

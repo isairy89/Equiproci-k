@@ -3,16 +3,14 @@ import {
   Servicio,
   PrecioCliente,
   Empleado,
-  Conduce,
-  DecisionPendiente
+  Conduce
 } from '../types';
 import {
   CLIENTES_INICIALES,
   SERVICIOS_INICIALES,
   PRECIOS_CLIENTE_INICIALES,
   EMPLEADOS_INICIALES,
-  CONDUCES_INICIALES,
-  DECISIONES_PENDIENTES_INICIALES
+  CONDUCES_INICIALES
 } from '../data/initialData';
 
 const KEYS = {
@@ -20,8 +18,7 @@ const KEYS = {
   SERVICIOS: 'equiproci_servicios',
   PRECIOS_CLIENTE: 'equiproci_precios_cliente',
   EMPLEADOS: 'equiproci_empleados',
-  CONDUCES: 'equiproci_conduces',
-  DECISIONES: 'equiproci_decisiones',
+  CONDUCES: 'equiproci_conduces'
 };
 
 function getItem<T>(key: string, defaultValue: T): T {
@@ -84,14 +81,6 @@ export class StorageService {
     setItem(KEYS.CONDUCES, conduces);
   }
 
-  // Decisiones Pendientes
-  static getDecisiones(): DecisionPendiente[] {
-    return getItem(KEYS.DECISIONES, DECISIONES_PENDIENTES_INICIALES);
-  }
-  static saveDecisiones(decisiones: DecisionPendiente[]): void {
-    setItem(KEYS.DECISIONES, decisiones);
-  }
-
   // Helper de Precio Dinámico
   static obtenerPrecioAcordado(clienteId: string, servicioId: string): number {
     const preciosCliente = this.getPreciosCliente();
@@ -113,6 +102,5 @@ export class StorageService {
     setItem(KEYS.PRECIOS_CLIENTE, PRECIOS_CLIENTE_INICIALES);
     setItem(KEYS.EMPLEADOS, EMPLEADOS_INICIALES);
     setItem(KEYS.CONDUCES, CONDUCES_INICIALES);
-    setItem(KEYS.DECISIONES, DECISIONES_PENDIENTES_INICIALES);
   }
 }

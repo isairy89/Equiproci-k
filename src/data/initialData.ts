@@ -1,4 +1,4 @@
-import { Cliente, Servicio, PrecioCliente, Empleado, Conduce, DecisionPendiente } from '../types';
+import { Cliente, Servicio, PrecioCliente, Empleado, Conduce } from '../types';
 
 export const CLIENTES_INICIALES: Cliente[] = [
   {
@@ -201,7 +201,7 @@ export const CONDUCES_INICIALES: Conduce[] = [
       }
     ],
     totalMetros: 28,
-    totalViajes: 2,
+    totalViajes: 0,
     montoTotal: 18200,
     observaciones: 'Acarreo de sub-base desde Mina San Isidro',
     creadoEn: '2026-08-10T16:00:00Z',
@@ -222,41 +222,17 @@ export const CONDUCES_INICIALES: Conduce[] = [
     detalles: [
       {
         material: 'Arena de pañete',
-        cantidad: 32, // 2 viajes de 16m3
+        cantidad: 32,
         unidad: 'metro',
         precioUnitario: 880,
         subtotal: 28160
       }
     ],
     totalMetros: 32,
-    totalViajes: 2,
+    totalViajes: 0,
     montoTotal: 28160,
     observaciones: 'Arena de pañete cernida calidad A',
     creadoEn: '2026-08-12T11:00:00Z',
     actualizadoEn: '2026-08-12T11:00:00Z'
-  }
-];
-
-export const DECISIONES_PENDIENTES_INICIALES: DecisionPendiente[] = [
-  {
-    id: 'dec-1',
-    titulo: 'Lógica de Cálculo de Nómina para Viajes y Metros',
-    descripcion: 'Los requisitos especifican el pago de horas (H.T.) para equipos por hora. Sin embargo, no se ha definido si el chofer de camión cobra un porcentaje del monto del viaje, una tarifa fija por viaje/m³ o salario base. Según la Regla #8, se mantiene identificado como punto pendiente.',
-    estado: 'pendiente',
-    impacto: 'alto'
-  },
-  {
-    id: 'dec-2',
-    titulo: 'Integración Técnica con Sistema de Facturación Externo',
-    descripcion: 'Se confirmó que la salida inicial se realiza mediante reportes consolidados exportados a Excel y PDF (Regla #5). Queda pendiente definir el formato o API si en el futuro se implementa una sincronización directa.',
-    estado: 'pendiente',
-    impacto: 'medio'
-  },
-  {
-    id: 'dec-3',
-    titulo: 'Estructura de Permisos y Roles de Usuario',
-    descripcion: 'Actualmente el sistema está configurado en acceso completo para el personal administrativo. Si en el futuro se requieren perfiles diferenciados (ej. Digitador, Supervisor, Administrador General), deberá definirse la matriz de accesos.',
-    estado: 'pendiente',
-    impacto: 'bajo'
   }
 ];

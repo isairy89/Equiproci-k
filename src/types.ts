@@ -143,10 +143,3 @@ export interface FiltrosReporte {
   servicioId?: string;
 }
 
-export interface DecisionPendiente {
-  id: string;
-  titulo: string;
-  descripcion: string;
-  estado: 'pendiente' | 'en_revision' | 'resuelto';
-  impacto: 'alto' | 'medio' | 'bajo';
-}
